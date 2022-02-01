@@ -7,13 +7,8 @@ const Logo = () => {
 
 	return (
 		<div className='ma4 mt0'>
-			<Tilt
-   				    glareEnable={true}
-                    glareMaxOpacity={0.45}
-    		>								
-      			 <div className='pa3' style={{ width: '150px', height: '150px' }}>
-        			<img alt='logo' src={Brain} />
-      			</div>
+			<Tilt className='Tilt br2 shadow-2' style={{ width: '150px', height: '150px' }}>
+        			<div className="Tilt-inner pa3"><img style={{paddingTop: '5px'}} alt='logo' src={Brain} /> </div>
     		</Tilt>
 		</div>
 
