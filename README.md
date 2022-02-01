@@ -13,4 +13,4 @@ embedd cool particle animations in your websites UI
 
 
 
-- <a href='https://pngtree.com/so/human'>human png from pngtree.com/</a>
+- brain clipart PNG Designed By Essie from <a href="https://pngtree.com"> Pngtree.com</a>
