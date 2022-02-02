@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Particles from "react-tsparticles";
 import Navigation from './components/Navigation/Navigation.js';
 import Logo from './components/Logo/Logo.js';
@@ -7,21 +7,29 @@ import Rank from './components/Rank/Rank.js';
 import './App.css';
 
 function App() {
+  const [input, setInput] = useState(0);
+
+  const onInputChange = (event) => {
+    console.log(event.target.value);
+  };
+
+  const onButtonSubmit = () => {
+    console.log('click');
+  };
 
   const particleParams = {
-
-  "particles": {
-    "color": {
-      "value": "#ffffff"
-    },
+    "particles": {
+      "color": {
+        "value": "#ffffff"
+      },
     "links": {
       "color": {
         "value": "#ffffff"
       },
-      "distance": 150,
-      "enable": true,
-      "opacity": 0.4
-    },
+    "distance": 150,
+    "enable": true,
+    "opacity": 0.4
+      },
     "move": {
       "attract": {
         "rotate": {
@@ -69,8 +77,7 @@ function App() {
         "minimumValue": 0.1
       }
     }
-  },
-  
+    },
   };
 
   return (
@@ -79,7 +86,7 @@ function App() {
       <Navigation />
       <Logo />
       <Rank />
-      <ImageLinkForm />
+      <ImageLinkForm onInputChange={onInputChange} onButtonSubmit={onButtonSubmit} />
     {/*  
        
         <FaceRecognition />
