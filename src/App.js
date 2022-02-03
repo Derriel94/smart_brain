@@ -4,6 +4,7 @@ import Clarifai from 'clarifai';
 import Navigation from './components/Navigation/Navigation.js';
 import Logo from './components/Logo/Logo.js';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm.js';
+import FaceRecognition from './components/FaceRecognition/FaceRecognition.js';
 import Rank from './components/Rank/Rank.js';
 import './App.css';
 
@@ -79,23 +80,21 @@ const particleParams = {
 function App() {
 
 
-  const [input, setInput] = useState(0);
+  const [input, setInput] = useState();
+  const [imageUrl, setImageUrl] = useState();
 
   const onInputChange = (event) => {
-    console.log(event.target.value);
+    setInput( event.target.value );
   };
 
 
 const onButtonSubmit = () => {
- console.log("click");
+   setImageUrl( input );
+
  app.models
-.predict(
-Clarifai.FACE_DETECT_MODEL,
-// THE JPG
-"https://i.insider.com/5d321d4ea209d3146d650b4a?width=1100&format=jpeg&auto=webp"
-)
+.predict(Clarifai.FACE_DETECT_MODEL, input)
 .then((response) => {
- console.log(response);
+ console.log(response.outputs[0].data.regions[0].region_info.bounding_box);
 })
 .catch((err) => {
  console.log(err);
@@ -110,10 +109,7 @@ Clarifai.FACE_DETECT_MODEL,
       <Logo />
       <Rank />
       <ImageLinkForm onInputChange={onInputChange} onButtonSubmit={onButtonSubmit} />
-    {/*  
-       
-        <FaceRecognition />
-    */}
+      <FaceRecognition imageUrl={imageUrl}/>
     </div>
   );
 }
