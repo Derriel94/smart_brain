@@ -84,16 +84,14 @@ function App() {
 const [input, setInput] = useState();
 const [imageUrl, setImageUrl] = useState();
 const [box, setBox] = useState({});
-//below will be the route state, it will keep track of where we are in the application
 const [route, setRoute] = useState('signin');
 const [isSignedIn, setIsSignedIn] = useState(false);
 
-
+//--- START OF FACE RECOGNITION LOGIC ---
 const onInputChange = (event) => {
     setInput( event.target.value );
   };
 
-//--- START OF FACE RECOGNITION LOGIC ---
 const calculateFaceLocation = (data) => {
   const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
   const image = document.getElementById('inputimage');
@@ -114,8 +112,7 @@ const displayFaceBox = (box) => {
 
 }
 
-//bad function name not specific enough
-const onButtonSubmit = () => {
+const onDetectButtonSubmit = () => {
   setImageUrl( input );
   app.models
   .predict(Clarifai.FACE_DETECT_MODEL, input)
@@ -157,7 +154,7 @@ const onRouteChange = (route) => {
       {route === 'home' 
       ? <div>
           <Rank />
-          <ImageLinkForm onInputChange={onInputChange} onButtonSubmit={onButtonSubmit} />
+          <ImageLinkForm onInputChange={onInputChange} onDetectButtonSubmit={onDetectButtonSubmit} />
           <FaceRecognition box={box} imageUrl={imageUrl}/>
         </div>
       : (
