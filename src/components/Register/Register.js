@@ -10,7 +10,7 @@ const Register = ( {onRouteChange, loadUser} ) => {
 
   const onEmailChange = (e) => {setEmail(e.target.value); console.log(email)};
   const onPasswordChange = (e) => {setPassword(e.target.value)};
-  const onNameChange = (e) => {setPassword(e.target.value)
+  const onNameChange = (e) => {setPassword(e.target.value)};
 
   const onSubmitSignIn = () => {
     fetch('http://localhost:3001/register', {

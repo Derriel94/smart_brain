@@ -8,7 +8,7 @@ const Signin = ( {onRouteChange, loadUser} ) => {
   const [email, setEmail] = useState('ThisisYourGrandaddy.com');
   const [password, setPassword] = useState('Type Your Password Grandson');
 
-  const onEmailChange = (e) => {setEmail(e.target.value); console.log(email)};
+  const onEmailChange = (e) => {setEmail(e.target.value)};
   const onPasswordChange = (e) => {setPassword(e.target.value)};
 
   const onSubmitSignIn = () => {
