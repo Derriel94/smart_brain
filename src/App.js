@@ -86,6 +86,24 @@ const [imageUrl, setImageUrl] = useState();
 const [box, setBox] = useState({});
 const [route, setRoute] = useState('signin');
 const [isSignedIn, setIsSignedIn] = useState(false);
+const [user, setUser] = useState({
+      id: '123',
+      name: 'John',
+      email: 'John@gmail.com',
+      password: 'cookies',
+      entries: 0,
+      joined: ''
+ });
+
+const loadUser = (userData) => {
+  setUser({
+    id: userData.id,
+    name: userData.name,
+    email: userData.email,
+    entries: userData.entries,
+    joined: userData.joind
+  })
+}
 
 //--- START OF FACE RECOGNITION LOGIC ---
 const onInputChange = (event) => {
@@ -116,7 +134,22 @@ const onDetectButtonSubmit = () => {
   setImageUrl( input );
   app.models
   .predict(Clarifai.FACE_DETECT_MODEL, input)
-  .then(response => displayFaceBox(calculateFaceLocation(response)))
+  .then(response => { 
+    if (response) {
+      fetch('http://localhost:3001/image', {
+        method: 'put',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          id: user.id
+        })
+      })
+      .then(response => response.json())
+      .then(count => {
+        setUser(Object.assign(user, {entries: count}));
+      })
+    }
+    displayFaceBox(calculateFaceLocation(response))
+    })
   .catch((err) => console.log(err));
 
 };  
@@ -153,14 +186,14 @@ const onRouteChange = (route) => {
     </div>
       {route === 'home' 
       ? <div>
-          <Rank />
+          <Rank user={user.name} entries={user.entries} />
           <ImageLinkForm onInputChange={onInputChange} onDetectButtonSubmit={onDetectButtonSubmit} />
           <FaceRecognition box={box} imageUrl={imageUrl}/>
         </div>
       : (
           route === 'signin'
-          ? <Signin onRouteChange={onRouteChange} />
-          : <Register onRouteChange={onRouteChange} />
+          ? <Signin loadUser={loadUser} onRouteChange={onRouteChange} />
+          : <Register loadUser={loadUser} onRouteChange={onRouteChange} />
         )
       }
     </div>
