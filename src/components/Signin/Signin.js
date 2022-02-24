@@ -23,6 +23,7 @@ const Signin = ( {onRouteChange, loadUser} ) => {
     .then(response => response.json())
     .then(userData => {
       if (userData) {
+        console.log(userData);
         loadUser(userData);
         onRouteChange('home');
       }

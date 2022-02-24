@@ -147,6 +147,7 @@ const onDetectButtonSubmit = () => {
       .then(count => {
         setUser(Object.assign(user, {entries: count}));
       })
+  
     }
     displayFaceBox(calculateFaceLocation(response))
     })
@@ -186,7 +187,7 @@ const onRouteChange = (route) => {
     </div>
       {route === 'home' 
       ? <div>
-          <Rank user={user.name} entries={user.entries} />
+          <Rank name={user.name} entries={user.entries} />
           <ImageLinkForm onInputChange={onInputChange} onDetectButtonSubmit={onDetectButtonSubmit} />
           <FaceRecognition box={box} imageUrl={imageUrl}/>
         </div>
