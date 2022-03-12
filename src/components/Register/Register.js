@@ -4,15 +4,15 @@ import React, { useState } from 'react';
 
 const Register = ( {onRouteChange, loadUser} ) => {
 
-  const [email, setEmail] = useState('ThisisYourGrandaddy.com');
-  const [password, setPassword] = useState('Type Your Password Grandson');
-  const [name, setName] = useState('Techmo Agonysama');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
 
-  const onEmailChange = (e) => {setEmail(e.target.value); console.log(email)};
+  const onEmailChange = (e) => {setEmail(e.target.value)};
   const onPasswordChange = (e) => {setPassword(e.target.value)};
   const onNameChange = (e) => {setPassword(e.target.value)};
 
-  const onSubmitSignIn = () => {
+  const onSubmitRegister = () => {
     fetch('http://localhost:3001/register', {
       method: 'post',
       headers: {'Content-Type': 'application/json'},
@@ -21,16 +21,17 @@ const Register = ( {onRouteChange, loadUser} ) => {
         password: password,
         name: name,
       })
-    })
-    .then(response => response.json())
-    .then(userData => {
+    }).then(response => {
+      console.log(response);
+      response.json()
+    }).then(userData => {
       if (userData) {
         loadUser(userData);
         onRouteChange('home');
       }
-    })
+    });
     
-  }
+  };
 
   return(
     <article className="o-90 mw6 center bg-white br3 pa3 pa4-ns mv4 w-100 w-50-m w-25-1 ba b--black-10">
@@ -52,7 +53,7 @@ const Register = ( {onRouteChange, loadUser} ) => {
             </div>
           </fieldset>
           <div className="">
-            <input onClick={onSubmitSignIn}className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit" value="Register" />
+            <input onClick={onSubmitRegister}className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit" value="Register" />
           </div>
         </div>
       </main>

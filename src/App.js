@@ -87,10 +87,9 @@ const [box, setBox] = useState({});
 const [route, setRoute] = useState('signin');
 const [isSignedIn, setIsSignedIn] = useState(false);
 const [user, setUser] = useState({
-      id: '123',
-      name: 'John',
-      email: 'John@gmail.com',
-      password: 'cookies',
+      id: '',
+      name: '',
+      email: '',
       entries: 0,
       joined: ''
  });
