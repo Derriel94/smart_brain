@@ -10,7 +10,7 @@ const Register = ( {onRouteChange, loadUser} ) => {
 
   const onEmailChange = (e) => {setEmail(e.target.value)};
   const onPasswordChange = (e) => {setPassword(e.target.value)};
-  const onNameChange = (e) => {setPassword(e.target.value)};
+  const onNameChange = (e) => {setName(e.target.value)};
 
   const onSubmitRegister = () => {
     fetch('http://localhost:3001/register', {
@@ -18,15 +18,15 @@ const Register = ( {onRouteChange, loadUser} ) => {
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
         email: email,
-        password: password,
         name: name,
+        password: password
+        
       })
-    }).then(response => {
-      console.log(response);
-      response.json()
-    }).then(userData => {
-      if (userData) {
-        loadUser(userData);
+    })
+      .then(response => response.json())
+      .then(user => {
+      if (user.id) {
+        loadUser(user);
         onRouteChange('home');
       }
     });

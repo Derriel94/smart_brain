@@ -94,14 +94,16 @@ const [user, setUser] = useState({
       joined: ''
  });
 
-const loadUser = (userData) => {
+const loadUser = (user) => {
+  console.log('1')
   setUser({
-    id: userData.id,
-    name: userData.name,
-    email: userData.email,
-    entries: userData.entries,
-    joined: userData.joind
+    id: user.id,
+    name: user.name,
+    email: user.email,
+    entries: user.entries,
+    joined: user.joind
   })
+console.log('2')
 }
 
 //--- START OF FACE RECOGNITION LOGIC ---
