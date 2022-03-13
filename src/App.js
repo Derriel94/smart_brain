@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Particles from "react-tsparticles";
-import Clarifai from 'clarifai';
 import Navigation from './components/Navigation/Navigation.js';
 import Logo from './components/Logo/Logo.js';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm.js';
@@ -10,11 +9,7 @@ import FaceRecognition from './components/FaceRecognition/FaceRecognition.js';
 import Rank from './components/Rank/Rank.js';
 import './App.css';
 
-console.log(Clarifai);
 
-const app = new Clarifai.App({
- apiKey: 'fc631598ba864d589be77be7e1229c61'
-});
 
 const particleParams = {
     "particles": {
@@ -133,8 +128,14 @@ const displayFaceBox = (box) => {
 
 const onDetectButtonSubmit = () => {
   setImageUrl( input );
-  app.models
-  .predict(Clarifai.FACE_DETECT_MODEL, input)
+  fetch('http://localhost:3001/imageurl', {
+        method: 'post',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          input: input
+        })
+      })
+  .then(response => response.json())
   .then(response => { 
     if (response) {
       fetch('http://localhost:3001/image', {
@@ -148,11 +149,11 @@ const onDetectButtonSubmit = () => {
       .then(count => {
         setUser(Object.assign(user, {entries: count}));
       })
-  
+      .catch(console.log)
     }
     displayFaceBox(calculateFaceLocation(response))
     })
-  .catch((err) => console.log(err));
+  .catch(err => console.log(err));
 
 };  
 
