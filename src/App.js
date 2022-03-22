@@ -90,7 +90,6 @@ const [user, setUser] = useState({
  });
 
 const loadUser = (user) => {
-  console.log('1')
   setUser({
     id: user.id,
     name: user.name,
@@ -98,7 +97,6 @@ const loadUser = (user) => {
     entries: user.entries,
     joined: user.joind
   })
-console.log('2')
 }
 
 //--- START OF FACE RECOGNITION LOGIC ---
@@ -128,7 +126,7 @@ const displayFaceBox = (box) => {
 
 const onDetectButtonSubmit = () => {
   setImageUrl( input );
-  fetch('http://localhost:3001/imageurl', {
+  fetch('https://smart-brain-detector-app.herokuapp.com/imageurl', {
         method: 'post',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
@@ -138,7 +136,7 @@ const onDetectButtonSubmit = () => {
   .then(response => response.json())
   .then(response => { 
     if (response) {
-      fetch('http://localhost:3001/image', {
+      fetch('https://smart-brain-detector-app.herokuapp.com/image', {
         method: 'put',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({

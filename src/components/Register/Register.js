@@ -13,7 +13,7 @@ const Register = ( {onRouteChange, loadUser} ) => {
   const onNameChange = (e) => {setName(e.target.value)};
 
   const onSubmitRegister = () => {
-    fetch('http://localhost:3001/register', {
+    fetch('https://smart-brain-detector-app.herokuapp.com/register', {
       method: 'post',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
